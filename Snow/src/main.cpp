@@ -1,23 +1,10 @@
 #include "core/core.h"
 
 int main() {
-	if (!glfwInit())
-		exit(1);
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "tit", nullptr, nullptr);
-	glfwMakeContextCurrent(window);
-	glewExperimental = GL_TRUE;
-	glewInit();
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
+	Window window;
 
-	while (!glfwWindowShouldClose(window)) {
-		glViewport(0, 0, 1280, 720);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.4, 0.4, 0.4, 1.0);
-
-		glfwPollEvents();
-		glfwSwapBuffers(window);
-	}
-	glfwTerminate();
+	do {
+		window.Clear();
+		window.Update();
+	} while (!window.Closed());
 }

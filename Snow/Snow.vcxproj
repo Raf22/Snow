@@ -131,7 +131,13 @@
     <ClCompile Include="src\Graphics\Camera.cpp" />
     <ClCompile Include="src\Graphics\GraphicsFunctions.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Math\AABB.cpp" />
+    <ClCompile Include="src\Math\Circle.cpp" />
+    <ClCompile Include="src\Physics\PhysicsFunctions.cpp" />
+    <ClCompile Include="src\Utilities\MemoryAllocator.cpp" />
+    <ClCompile Include="src\Utilities\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\core.h" />
@@ -139,9 +145,23 @@
     <ClInclude Include="src\core\Game.h" />
     <ClInclude Include="src\core\Level.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
+    <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\GraphicsFunctions.h" />
     <ClInclude Include="src\Graphics\GraphicsTypes.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
+    <ClInclude Include="src\Graphics\Window.h" />
+    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Input\KeyboardInput.h" />
+    <ClInclude Include="src\Input\MouseInput.h" />
+    <ClInclude Include="src\Math\AABB.h" />
+    <ClInclude Include="src\Math\Circle.h" />
+    <ClInclude Include="src\Math\Math.h" />
+    <ClInclude Include="src\Physics\Physics.h" />
+    <ClInclude Include="src\Physics\PhysicsFunctions.h" />
+    <ClInclude Include="src\Physics\PhysicsTypes.h" />
+    <ClInclude Include="src\Utilities\MemoryAllocator.h" />
+    <ClInclude Include="src\Utilities\Timer.h" />
+    <ClInclude Include="src\Utilities\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\defaultShader.frag" />

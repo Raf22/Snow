@@ -10,8 +10,8 @@ public:
 	glm::mat4 GetViewMatrix() const { return glm::lookAt(this->position, this->position + this->front, this->up); }
 	
 	
-private:
 	glm::vec3					position, front, up, right, worldUp;
 	GLfloat						pitch, yaw;
+private:
 	void UpdateCameraVectors();
 };

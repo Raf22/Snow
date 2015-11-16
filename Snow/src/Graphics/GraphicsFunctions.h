@@ -1,7 +1,9 @@
 #pragma once
 #include "GraphicsTypes.h"
-
-bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs); //loads obj file and writes data into vectors
+#include "Camera.h"
+#include "Shader.h"
+#include "glm/gtc/type_ptr.hpp"
+bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs); //loads obj file and writes data into vectors, returns false if anything goes wrong
 
 bool LoadMesh(const char* path, Mesh &mesh); //loads mesh
 void SetupMesh(Mesh &mesh); //generates the mesh's vao and vbo and inputs mesh data into them for rendering
@@ -18,7 +20,7 @@ Model* CreateModel(Mesh *mesh, Tex *tex, const char* name);
 Model* GetModel(const char* modelName, std::vector<Model>&modelList);
 void DestroyModel(const char* modelName, std::vector<Model>&modelList);
 
-void DrawMesh();			//render function for mesh
+void DrawMesh(const Mesh mesh, const Camera camera, Shader shader);			//render function for mesh
 void DrawTexturedMesh();	//render function for mesh and texture
 void DrawModel();			//render function for model
 void DrawPoint();			//render function for point

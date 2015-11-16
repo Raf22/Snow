@@ -1,4 +1,4 @@
-1. finish graphics functions
-2. add more comments(for documentation purposes)
-3. test shaders
+1. fix graphics functions
+2. test shaders
+3. add more comments(for documentation purposes)
 4. complete engine

@@ -1,23 +1,33 @@
 #pragma once
-
-#include "GLEW/glew.h"
-#include <fstream>
 #include <iostream>
-#include <string>
+#include <GLEW/glew.h>
 
-class Shader {
+class Shader
+{
 public:
-	Shader(const char* vertexPath, const char* fragmentPath);
-	~Shader();
+	Shader(const char *vsPath, const char *fsPath, const char* name);
+	~Shader(void);
 
-	void useShaderProgram() const { glUseProgram(this->shaderProgram); }
+	void init(const char *vsPath, const char *fsPath);
+
+	void bind();		// use the shader vert and frag
+	void unbind();		// stop using shader vert and frag
+
+	unsigned int getID() const;
+
+	void uniformVector(const char*, float*);
+	void uniformVector(const char*, float, float, float);
+	void uniformFloat(const char*, float);
+	void uniformTex(const char*, GLuint, unsigned short);
+
+	//glsl program handler
+	unsigned int				shaderProgram;
+
+	//vert and fag shaders
+	unsigned int				vertShader;
+	unsigned int				fragShader;
 
 	const char*					name;
-private:
-	const char* getShaderSrc(const char* path); //parses shader file and stores code into a char array
-	GLuint createShader(const char* shaderSrc, GLenum shaderType) const; //creates a shader, compiles shader code into it and returns compiled shader
-	GLuint createProgram(const GLuint vertexShader, const GLuint fragmentShader) const; //creates program and attaches vertex and fragment shader
-	
-	
-	GLuint						shaderProgram;	
+
+
 };

@@ -1,13 +1,13 @@
 #pragma once
 #include "GraphicsTypes.h"
 
-bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs);
+bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs); //loads obj file and writes data into vectors
 
-bool LoadMesh(const char* path, Mesh &mesh);
-void SetupMesh(Mesh &mesh);
-Mesh* CreateMesh(const char* path, const char* name);
-Mesh* GetMesh(const char* meshName, std::vector<Mesh>&meshList);
-void DestroyMesh(const char* meshName, std::vector<Mesh>&meshList);
+bool LoadMesh(const char* path, Mesh &mesh); //loads mesh
+void SetupMesh(Mesh &mesh); //generates the mesh's vao and vbo and inputs mesh data into them for rendering
+Mesh* CreateMesh(const char* path, const char* name); //creates and returns a new mesh with specified name
+Mesh* GetMesh(const char* meshName, std::vector<Mesh>&meshList); //finds a mesh in a specificed mesh list
+void DestroyMesh(const char* meshName, std::vector<Mesh>&meshList); //destroys a mesh in a specified mesh list
 
 bool LoadTex(const char* path, Tex& tex);
 Tex* CreateTex(const char* path, const char* name);
@@ -18,11 +18,10 @@ Model* CreateModel(Mesh *mesh, Tex *tex, const char* name);
 Model* GetModel(const char* modelName, std::vector<Model>&modelList);
 void DestroyModel(const char* modelName, std::vector<Model>&modelList);
 
-void DrawMesh();
-void DrawTexturedMesh();
-void DrawModel();
-void DrawPoint();
-void DrawVector();
-void DrawAABB();
-void DrawCircle();
-void DrawText();
+void DrawMesh();			//render function for mesh
+void DrawTexturedMesh();	//render function for mesh and texture
+void DrawModel();			//render function for model
+void DrawPoint();			//render function for point
+void DrawAABB();			//render function for AABB
+void DrawCircle();			//render function for circle
+void DrawText();			//render function for text

@@ -14,9 +14,9 @@ public:
 
 	const char*					name;
 private:
-	const char* getShaderSrc(const char* path);
-	GLuint createShader(const char* shaderSrc, GLenum shaderType) const;
-	GLuint createProgram(const GLuint vertexShader, const GLuint fragmentShader) const;
+	const char* getShaderSrc(const char* path); //parses shader file and stores code into a char array
+	GLuint createShader(const char* shaderSrc, GLenum shaderType) const; //creates a shader, compiles shader code into it and returns compiled shader
+	GLuint createProgram(const GLuint vertexShader, const GLuint fragmentShader) const; //creates program and attaches vertex and fragment shader
 	
 	
 	GLuint						shaderProgram;	

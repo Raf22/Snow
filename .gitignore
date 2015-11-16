@@ -24,3 +24,11 @@
 *.exe
 *.out
 *.app
+
+# Folders
+/Debug/*
+/Snow/Debug/*
+
+# Others
+*.sdf
+*.opensdf

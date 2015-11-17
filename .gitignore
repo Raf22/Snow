@@ -1,7 +1,3 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
 
 # Precompiled Headers
 *.gch
@@ -14,11 +10,6 @@
 
 # Fortran module files
 *.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
 
 # Executables
 *.exe

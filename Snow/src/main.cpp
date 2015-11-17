@@ -86,9 +86,9 @@ int main() {
 	glGenBuffers(1, &mesh->vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
 	
-	glBufferData(GL_ARRAY_BUFFER, sizeof(mesh->vertices), &mesh->vertices, GL_STATIC_DRAW);
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(mesh->vertices), &mesh->vertices);
-	//glBufferSubData(GL_ARRAY_BUFFER, sizeof(mesh->vertices), sizeof(vcolors), vcolors);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(mesh->vertices) + sizeof(vcolors), nullptr, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(mesh->vertices), &mesh->vertices);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(mesh->vertices), sizeof(vcolors), vcolors);
 	
 	GLuint vPosition = glGetAttribLocation(defaultShader.getID(), "vPosition");
 	glEnableVertexAttribArray(vPosition);

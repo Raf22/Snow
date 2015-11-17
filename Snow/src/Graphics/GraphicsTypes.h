@@ -13,10 +13,12 @@ typedef struct _mesh {
 	std::vector<glm::vec3>		normals;
 	std::vector<glm::vec2>		uvs;
 
-	GLuint						vao, vbo;
+	GLuint						vao, vbo, nbo, tbo;
 	const char*					name;
 	glm::vec3					position, scale;
 	glm::quat					rotation;
+
+	glm::vec4*					vcolors;
 }Mesh;
 
 

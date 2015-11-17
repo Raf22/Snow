@@ -82,14 +82,26 @@ bool LoadMesh(const char* path, Mesh &mesh) {
 }
 
 void SetupMesh(Mesh *mesh, Shader &shader) {
+	glGenVertexArrays(1, &mesh->vao);
+
+	glBindVertexArray(mesh->vao);
+
 	glGenBuffers(1, &mesh->vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
-
 	glBufferData(GL_ARRAY_BUFFER, mesh->vertices.size() * sizeof(glm::vec4), &mesh->vertices[0], GL_STATIC_DRAW);
+	shader.inAttrib("vPosition", nullptr);
 
-	GLuint vPosition = glGetAttribLocation(shader.getID(), "vPosition");
-	glEnableVertexAttribArray(vPosition);
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+	glGenBuffers(1, &mesh->nbo);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->nbo);
+	glBufferData(GL_ARRAY_BUFFER, mesh->normals.size() * sizeof(glm::vec3), &mesh->normals[0], GL_STATIC_DRAW);
+	//shader.inAttrib("vNormal", nullptr);
+
+	glGenBuffers(1, &mesh->tbo);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->tbo);
+	glBufferData(GL_ARRAY_BUFFER, mesh->uvs.size() * sizeof(glm::vec2), &mesh->uvs[0], GL_STATIC_DRAW);
+	//shader.inAttrib("vTexCoord", nullptr);
+
+
 }
 
 Mesh* CreateMesh(const char* path, const char* _name) {
@@ -127,6 +139,7 @@ void DrawMesh(const Mesh mesh, const Camera camera, Shader shader) {
 	shader.uniformMatrix4("view", camera.GetViewMatrix());
 	shader.uniformMatrix4("projection", glm::perspective(camera.fov, camera.asp, camera.near, camera.far));
 
+	
 	glBindVertexArray(mesh.vao);
 	shader.bind();
 	glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());

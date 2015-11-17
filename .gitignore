@@ -23,3 +23,6 @@
 # Others
 *.sdf
 *.opensdf
+
+# Material files
+*.mtl

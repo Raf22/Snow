@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <GLEW/glew.h>
+#include "glm/glm.hpp"
 
 class Shader
 {
@@ -15,10 +16,12 @@ public:
 
 	unsigned int getID() const;
 
-	void uniformVector(const char*, float*);
-	void uniformVector(const char*, float, float, float);
-	void uniformFloat(const char*, float);
-	void uniformTex(const char*, GLuint, unsigned short);
+	void uniformVector(const char* vName, float* data);
+	void uniformVector(const char* vName, float dataX, float dataY, float dataZ);
+	void uniformFloat(const char* vName, float data);
+	void uniformTex(const char* vName, GLuint texData, unsigned short activeTex);
+	void uniformMatrix4(const char* vName, glm::mat4 data);
+	void inAttrib(const char* vName, GLvoid* offset);
 
 	//glsl program handler
 	unsigned int				shaderProgram;

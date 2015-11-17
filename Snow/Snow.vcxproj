@@ -130,6 +130,7 @@
     <ClCompile Include="src\core\Level.cpp" />
     <ClCompile Include="src\Graphics\Camera.cpp" />
     <ClCompile Include="src\Graphics\GraphicsFunctions.cpp" />
+    <ClCompile Include="src\Graphics\Particle.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\GraphicsFunctions.h" />
     <ClInclude Include="src\Graphics\GraphicsTypes.h" />
+    <ClInclude Include="src\Graphics\Particle.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
     <ClInclude Include="src\Graphics\Window.h" />
     <ClInclude Include="src\Input\Input.h" />

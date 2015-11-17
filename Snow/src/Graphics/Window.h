@@ -15,6 +15,7 @@ public:
 	inline bool Closed() const { return glfwWindowShouldClose(window); }
 
 	GLFWwindow* GetWindowInstance() const { return window; }
+	GLfloat	GetAspectRatio() const { return windowWidth / (float)windowHeight; }
 private:
 	void Init();
 

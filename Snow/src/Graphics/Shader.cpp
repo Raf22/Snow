@@ -135,6 +135,18 @@ void Shader::uniformTex(const char* varName, GLuint data, unsigned short activeT
 	glUniform1i(loc, activeTexture);
 }
 
+void Shader::uniformMatrix4(const char* varName, glm::mat4 data) {
+	GLint loc = glGetUniformLocation(shaderProgram, varName);
+	glUniformMatrix4fv(loc, 1, GL_FALSE, &data[0][0]);
+}
+
+void Shader::inAttrib(const char* varName, GLvoid* offset) {
+	GLuint loc = glGetAttribLocation(shaderProgram, varName);
+	glEnableVertexAttribArray(loc);
+	glVertexAttribPointer(loc, 4, GL_FLOAT, GL_FALSE, 0, offset);
+}
+
+
 
 
 

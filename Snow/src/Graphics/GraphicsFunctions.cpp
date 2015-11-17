@@ -1,7 +1,7 @@
 #include "GraphicsFunctions.h"
 
 
-bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs) {
+bool LoadObj(const char* path, std::vector<glm::vec4>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs) {
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices;
 	std::vector<glm::vec2> temp_uvs;
@@ -59,7 +59,7 @@ bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector
 			for (unsigned int i = 0; i < vertexIndices.size(); ++i) {
 				unsigned int vertexIndex = vertexIndices[i];
 				glm::vec3 vertex = temp_vertices[vertexIndex - 1];
-				out_vertices.push_back(vertex);
+				out_vertices.push_back(glm::vec4(vertex, 1.0));
 			}
 			for (unsigned int i = 0; i < normalIndices.size(); ++i) {
 				unsigned int normalIndex = normalIndices[i];
@@ -81,25 +81,16 @@ bool LoadMesh(const char* path, Mesh &mesh) {
 	return LoadObj(path, mesh.vertices, mesh.normals, mesh.uvs);
 }
 
-void SetupMesh(Mesh &mesh) {
-	glGenVertexArrays(1, &mesh.vao);
+void SetupMesh(Mesh &mesh, Shader shader) {
 	glGenBuffers(1, &mesh.vbo);
-	
-	glBindVertexArray(mesh.vao);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(mesh.vertices), &mesh.vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(mesh.vertices) + sizeof(mesh.normals) + sizeof(mesh.uvs), nullptr, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(mesh.vertices), &mesh.vertices);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(mesh.vertices), sizeof(mesh.normals), &mesh.normals);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(mesh.vertices)+sizeof(mesh.normals), sizeof(mesh.uvs), &mesh.uvs);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	
-	//glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(mesh.normals), (void*)0);
-	//
-	//glEnableVertexAttribArray(2);
-	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(mesh.uvs), (void*)0);
-
-	glBindVertexArray(0);
+	shader.inAttrib("vPosition", 0);
 }
 
 Mesh* CreateMesh(const char* path, const char* _name) {
@@ -107,18 +98,18 @@ Mesh* CreateMesh(const char* path, const char* _name) {
 
 	mesh->name = _name;
 	LoadMesh(path, *mesh);
-	SetupMesh(*mesh);
 
 	return mesh;
 }
 
 Mesh* GetMesh(const char* name, std::vector<Mesh>&meshList) {
+	Mesh *mesh = nullptr;
 	for (std::vector<Mesh>::iterator meshIter = meshList.begin(); meshIter != meshList.end(); ++meshIter) {
 		if (meshIter->name == name) {
-			return &*meshIter;
+			mesh = &*meshIter;
 		} 
 	}
-	return nullptr;
+	return mesh;
 }
 
 void DestroyMesh(const char* name, std::vector<Mesh>&meshList) {
@@ -131,10 +122,14 @@ void DestroyMesh(const char* name, std::vector<Mesh>&meshList) {
 }
 
 void DrawMesh(const Mesh mesh, const Camera camera, Shader shader) {
+	glm::mat4 meshTransform = glm::translate(meshTransform, mesh.position*mesh.rotation);
+
+	shader.uniformMatrix4("model", glm::mat4(1.0));
+	shader.uniformMatrix4("view", camera.GetViewMatrix());
+	shader.uniformMatrix4("projection", glm::perspective(camera.fov, camera.asp, camera.near, camera.far));
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
 
 	shader.bind();
-	glBindVertexArray(mesh.vao);
 	glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
-	shader.unbind();
-	glBindVertexArray(0);
 }

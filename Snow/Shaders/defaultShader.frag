@@ -1,15 +1,8 @@
 #version 330 core
 
-in vec3 fragPosition;
-in vec3 Normal;
-in vec2 TexCoords;
+in vec4 color;
+out vec4 fColor;
 
-out vec4 color;
-
-uniform vec3 viewPos;
-
-void main()
-{    
-    
-    color = vec4(1.0, 1.0, 1.0, 1.0);
+void main() {
+	fColor = color;
 }

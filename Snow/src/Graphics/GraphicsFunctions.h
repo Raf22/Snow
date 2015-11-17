@@ -3,10 +3,12 @@
 #include "Camera.h"
 #include "Shader.h"
 #include "glm/gtc/type_ptr.hpp"
-bool LoadObj(const char* path, std::vector<glm::vec3>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs); //loads obj file and writes data into vectors, returns false if anything goes wrong
+
+
+bool LoadObj(const char* path, std::vector<glm::vec4>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs); //loads obj file and writes data into vectors, returns false if anything goes wrong
 
 bool LoadMesh(const char* path, Mesh &mesh); //loads mesh
-void SetupMesh(Mesh &mesh); //generates the mesh's vao and vbo and inputs mesh data into them for rendering
+void SetupMesh(Mesh &mesh, Shader shader); //generates the mesh's vao and vbo and inputs mesh data into them for rendering
 Mesh* CreateMesh(const char* path, const char* name); //creates and returns a new mesh with specified name
 Mesh* GetMesh(const char* meshName, std::vector<Mesh>&meshList); //finds a mesh in a specificed mesh list
 void DestroyMesh(const char* meshName, std::vector<Mesh>&meshList); //destroys a mesh in a specified mesh list

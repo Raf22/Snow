@@ -11,10 +11,23 @@ int main() {
 		window.Clear();
 
 		DrawMesh(*sphereMesh, camera, defaultShader);
-
-		sphereMesh->position.x -= 0.16;
+		camera.front = sphereMesh->position;
+		sphereMesh->rotY -= 0.016;
+		{
+			if (glfwGetKey(window.GetWindowInstance(), GLFW_KEY_W) == GLFW_PRESS) {
+				sphereMesh->position.x -= 0.16;
+			}
+			else if (glfwGetKey(window.GetWindowInstance(), GLFW_KEY_S) == GLFW_PRESS) {
+				sphereMesh->position.x += 0.16;
+			}
+			if (glfwGetKey(window.GetWindowInstance(), GLFW_KEY_A) == GLFW_PRESS) {
+				sphereMesh->position.z += 0.16;
+			}
+			else if (glfwGetKey(window.GetWindowInstance(), GLFW_KEY_D) == GLFW_PRESS) {
+				sphereMesh->position.z -= 0.16;
+			}
+		}
 		window.Update();
-		std::cout << "frame done" << std::endl;
 	} while (!window.Closed() && glfwGetKey(window.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS);
 	delete sphereMesh;
 }

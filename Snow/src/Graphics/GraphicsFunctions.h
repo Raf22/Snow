@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "Shader.h"
 #include "glm/gtc/type_ptr.hpp"
+#include "glm/gtx/transform.hpp"
 
 
 bool LoadObj(const char* path, std::vector<glm::vec4>& out_vertices, std::vector<glm::vec3>& out_normals, std::vector<glm::vec2>& out_uvs); //loads obj file and writes data into vectors, returns false if anything goes wrong
@@ -23,8 +24,8 @@ Model* GetModel(const char* modelName, std::vector<Model>&modelList);
 void DestroyModel(const char* modelName, std::vector<Model>&modelList);
 
 void DrawMesh(const Mesh mesh, const Camera camera, Shader shader);			//render function for mesh
-void DrawTexturedMesh();	//render function for mesh and texture
-void DrawModel();			//render function for model
+void DrawTexturedMesh(const Mesh mesh, const Tex tex, const Camera camera, Shader shader);		//render function for mesh and texture
+void DrawModel(const Model model, const Camera camera, Shader shader);			//render function for model
 void DrawPoint();			//render function for point
 void DrawAABB();			//render function for AABB
 void DrawCircle();			//render function for circle

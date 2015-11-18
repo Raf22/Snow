@@ -133,14 +133,27 @@ void DestroyMesh(const char* name, std::vector<Mesh>&meshList) {
 }
 
 void DrawMesh(const Mesh mesh, const Camera camera, Shader shader) {
-	glm::mat4 meshTransform = glm::translate(glm::mat4(1.0), mesh.position);
+	//calculate mesh LocalTransformMatrix
+	glm::mat4 qX = glm::rotate(mesh.rotX, glm::vec3(1.0, 0.0, 0.0));
+	glm::mat4 qY = glm::rotate(mesh.rotY, glm::vec3(0.0, 1.0, 0.0));
+	glm::mat4 qZ = glm::rotate(mesh.rotZ, glm::vec3(0.0, 0.0, 1.0));
+	glm::mat4 meshTransform = glm::translate(glm::mat4(1.0), mesh.position) * (qZ*qY*qX) * glm::scale(mesh.scale);
 
 	shader.uniformMatrix4("model", meshTransform);
 	shader.uniformMatrix4("view", camera.GetViewMatrix());
 	shader.uniformMatrix4("projection", glm::perspective(camera.fov, camera.asp, camera.near, camera.far));
-
-	
+		
 	glBindVertexArray(mesh.vao);
 	shader.bind();
 	glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
+	glBindVertexArray(0);
+}
+
+void DrawTexturedMesh(const Mesh mesh, const Tex tex, const Camera camera, Shader shader) {
+	glBindTexture(GL_TEXTURE_2D, tex.texID);
+	DrawMesh(mesh, camera, shader);
+}
+
+void DrawModel(const Model model, const Camera camera, const Shader shader) {
+	DrawTexturedMesh(model.mesh, model.tex, camera, shader);
 }

@@ -9,6 +9,8 @@
 #include <fstream>
 
 typedef struct _mesh {
+	_mesh() : scale(glm::vec3(1.0, 1.0, 1.0)), position(glm::vec3(0.0, 0.0, 0.0)), rotX(0.0), rotY(0.0), rotZ(0.0) {}
+
 	std::vector<glm::vec4>		vertices;
 	std::vector<glm::vec3>		normals;
 	std::vector<glm::vec2>		uvs;
@@ -16,9 +18,8 @@ typedef struct _mesh {
 	GLuint						vao, vbo, nbo, tbo;
 	const char*					name;
 	glm::vec3					position, scale;
+	GLfloat						rotX, rotY, rotZ;
 	glm::quat					rotation;
-
-	glm::vec4*					vcolors;
 }Mesh;
 
 
